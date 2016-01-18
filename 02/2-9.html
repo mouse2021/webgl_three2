@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>DOM edit node sample by gbox3d</title>
+		<script>
+			window.onload = function() {
+				var ul_elm = document.getElementsByTagName('ul')[0];
+				var elm = document.body.children;
+				document.getElementById('btn1').onclick = function() {
+					var node = document.createElement('li');
+					node.innerText = 'test node';
+					ul_elm.appendChild(node);
+				}
+				document.getElementById('btn2').onclick = function() {
+					var node = document.createElement('li');
+					node.innerText = 'test node insertBefore';
+					var refNode = ul_elm.firstChild;
+					ul_elm.insertBefore(node, refNode);
+				}
+				document.getElementById('btn3').onclick = function() {
+					var node = ul_elm.children[0];
+					ul_elm.removeChild(node);
+				}
+				document.getElementById('btn4').onclick = function() {
+					var old_node = ul_elm.children[0];
+					var new_node = document.createElement('li');
+					new_node.innerText = 'test node replaceChild';
+					ul_elm.replaceChild(new_node,old_node);
+				}
+				document.getElementById('btn5').onclick = function() {
+					
+					var node = ul_elm.cloneNode(
+						true //true면 자식 노드까지 복사한다.
+						);
+					document.body.appendChild(node);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button id ='btn1'> add </button>
+		<button id ='btn2'>	inserBefore</button>
+		<button id ='btn3'>	removeChild</button>
+		<button id ='btn4'>	replace</button>
+		<button id ='btn5'>	clone node</button>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+$(document).ready(
+	function() {
+		$('#btn1').on('click', function() {
+			console.log('hello javascript');
+			$('<p></p>').text('hello jquery').appendTo('body');
+		});
+	});
+</script>
+</head>
+<body>
+	<input type="button" id='btn1' value='test' />
+</body>
+</html>

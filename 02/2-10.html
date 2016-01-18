@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>bubbling vs capturing</title>
+    <style>
+        div div { margin: 10px; padding: 10px; background-color: red; }
+        div div > div { background-color: yellow; }
+        div div > div > div { background-color: blue; }
+        textarea { width: 90%; height: 200px; }
+    </style>
+</head>
+<body>
+
+<p>버블링</p>
+<div class="bubble" >
+    <div class="1">1
+        <div class="2">2
+            <div class="3">3
+            </div>
+        </div>
+    </div>
+</div>
+<p>캡쳐링</p>
+<div class="capture" >
+    <div class="1">1
+        <div class="2">2
+            <div class="3">3
+            </div>
+        </div>
+    </div>
+</div>
+<textarea></textarea>
+
+<script>
+    var logger = document.getElementsByTagName("textarea")[0];
+    function log(newtext) {
+        logger.value += newtext + "\n";
+        logger.scrollTop = logger.scrollHeight; //스크롤바를 항상 밑으로 내리기
+    }
+    var divs = document.querySelectorAll(".bubble div");
+
+    for(var i=0; i < divs.length; i++) {
+        (function(){
+            var div = divs[i];//클로져
+            div.addEventListener('click',function(e){
+                log(div.className);
+            }
+                    //버블링(생략 기본값 false)
+            );
+        })();
+    }
+
+    var divs = document.querySelectorAll(".capture div");
+
+    for(var i=0; i < divs.length; i++) {
+        (function(){
+            var div = divs[i];//클로져
+            div.addEventListener('click',function(e){
+                log(div.className);
+            },
+                    true //캡쳐링
+            );
+
+        })();
+    }
+</script>
+</body>
+</html>

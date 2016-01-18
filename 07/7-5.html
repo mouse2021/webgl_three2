@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<title>animation sample</title>
+	<style>
+		@-webkit-keyframes test-keyframe {
+			0% {-webkit-transform : translate(0px,0px)}
+			50% {-webkit-transform : translate(300px,0px)}
+			100% {-webkit-transform : translate(0px,0px)}
+		}
+		.ball {
+			position:absolute; left: 3px;
+			height:50px; width:50px; border-radius:25px;
+			-webkit-animation-name: test-keyframe;
+			-webkit-animation-duration: 2s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-play-state: paused;
+			-webkit-animation-iteration-count: infinite;
+		}
+	</style>
+</head>
+<body >
+
+<div id="ball-obj" class="ball" 
+		style="top:50px; background-color: red;"></div>
+<p id="log" ></p>
+
+<script>
+	var ballobj = document.getElementById('ball-obj');
+	ballobj.addEventListener('click',function() {
+		this.style.webkitAnimationPlayState = 'running';
+	});
+
+	setInterval(function(evt) {
+		var computedStyle = window.getComputedStyle(ballobj);
+		var trans = computedStyle.getPropertyValue('-webkit-transform');
+		document.getElementById('log').innerText = trans;
+	}, 50);
+</script>
+</body>
+</html>

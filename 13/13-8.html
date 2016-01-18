@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	<title>trackball camera</title>
+
+
+	<script src='../libs/jquery-2.0.3.min.js'></script>
+	<script src='../libs/threejs/three.js'></script>
+	<script src='../libs/threejs/CSS3DRenderer.js'></script>
+
+	<script src='../libs/ramb3d/core.js'></script>
+
+
+</head>
+
+<body style="margin: 0px;">
+
+<script>
+
+	var Smgr = new ramb3d.scene.SceneManager({
+		camera : {
+			fov : 45,
+			far : 5000,
+			near : 1,
+			position : new THREE.Vector3(0, 0, 500),
+			lookat : new THREE.Vector3()
+		},
+		renderer : {
+			type : 'css3'
+		}
+	});
+
+
+	var rocket_plane = ramb3d.util.createPlane({
+
+		width : 110,
+		height : 177,
+		texture : '../res/cohete_off.png',
+		color : 'rgba(0, 0, 0, 0)',
+		position : new THREE.Vector3(0,177/2,0),
+		render_type : 'css3',
+		parent : Smgr.scene
+
+	});
+
+	var bkg_plane = ramb3d.util.createPlane({
+		width : 256,
+		height: 256,
+		texture : '../res/wall.jpg',
+		render_type : 'css3',
+		rotation :  new THREE.Euler(THREE.Math.degToRad(90),0,0),
+		parent: Smgr.scene
+	});
+
+	//트랙볼 카메라 컨트롤러 생성
+	var tbcc = Smgr.addTBCameraController(
+			{
+				Smgr : Smgr,
+				center : new THREE.Vector3(0,0,0),
+				radius : 700
+			}
+	);
+
+	tbcc.setRotation(THREE.Math.degToRad(-25),0,0)
+			.apply();
+	Smgr.updateAll();
+
+	//리싸이징에 대한 처리
+	window.addEventListener( 'resize', onWindowResize, false );
+
+	function onWindowResize() {
+
+		Smgr.updateAll({
+			resize : {
+				width :  window.innerWidth,
+				height : window.innerHeight
+			}
+		});
+
+	}
+
+</script>
+
+</body>
+</html>

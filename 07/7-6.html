@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8"/>
+	<title>animation end</title>
+	<style>
+		@-webkit-keyframes myanim {
+			0% {-webkit-transform : scale(1,1);opacity: 1}
+			50% {-webkit-transform : scale(3,3); opacity: 0}
+			100% {-webkit-transform : scale(1,1);opacity: 1}
+		}
+		.ball {
+			position:absolute; left: 3px;
+			height:50px; width:50px; border-radius:25px;
+		}
+		.animation {
+			-webkit-animation-name: myanim;
+			-webkit-animation-duration: 2s;
+			-webkit-animation-timing-function: ease;
+			-webkit-animation-play-state: paused;
+			-webkit-animation-iteration-count: 2;
+		}
+	</style>
+</head>
+<body >
+<div id="gameobj" class="ball" style="top:50px; background-color: red;"></div>
+<p id="output"></p>
+<script>
+	var gameobj = document.getElementById('gameobj');
+	var output = document.getElementById('output');
+
+	gameobj.addEventListener('click',function() {
+		gameobj.classList.add('animation');
+		this.style.webkitAnimationPlayState = 'running';
+	});
+	gameobj.addEventListener('webkitAnimationStart',function() {
+		output.innerText = 'start';
+	});
+	gameobj.addEventListener('webkitAnimationEnd',function() {
+		output.innerText = 'end';
+		gameobj.classList.remove('animation');
+	});
+	gameobj.addEventListener('webkitAnimationIteration',function() {
+		output.innerText = 'Iteration';
+	});
+</script>
+</body>
+</html>

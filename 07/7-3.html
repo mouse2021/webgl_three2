@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<title> transition sample </title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+
+</head>
+<body style="margin: 0px;" >
+
+<div id="gameobj_linear" >linear</div>
+<div id="gameobj_easein" >ease in</div>
+<div id="gameobj_easeout" >ease out</div>
+
+<script>
+	var gameobj_element_linear = document.getElementById('gameobj_linear');
+	var gameobj_element_easein = document.getElementById('gameobj_easein');
+	var gameobj_element_easeout = document.getElementById('gameobj_easeout');
+
+	//트랜지션 설정해주기
+	//웹킷기반 브라우저 공통
+	gameobj_element_linear.style.WebkitTransition = '-webkit-transform 2s linear'; 
+	gameobj_element_easein.style.WebkitTransition = '-webkit-transform 2s ease-in';	
+	gameobj_element_easeout.style.WebkitTransition = '-webkit-transform 2s ease-out'; 
+
+	document.addEventListener('click',function(evt) {
+		//웹킷기반 브라우저 공통
+		gameobj_element_linear.style.WebkitTransform = 'translate('+ evt.pageX +'px,'+ evt.pageY +'px)'; 
+		gameobj_element_easein.style.WebkitTransform = 'translate('+ evt.pageX +'px,'+ evt.pageY +'px)';
+		gameobj_element_easeout.style.WebkitTransform = 'translate('+ evt.pageX +'px,'+ evt.pageY +'px)'
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="http://gbox3d.github.io/pig2d/libs/pig2d/css/core.css" />
+
+<!--제이쿼리가 종속성 관계에서 가장 높은 위치이다 그래서 맨 먼저 쓴다-->
+<script src="http://gbox3d.github.io/pig2d/libs/jquery-2.0.3.min.js"></script>
+<script src="http://gbox3d.github.io/pig2d/libs/backbone/underscore-min.js"></script>
+<script src="http://gbox3d.github.io/pig2d/libs/backbone/backbone-min.js"></script>
+
+<!--pig2d 엔진은 제이쿼리와 백본에 종속적이므로 맨 나중에 쓴다-->
+<script src="http://gbox3d.github.io/pig2d/libs/pig2d/js/core.js"></script>
+<script src="http://gbox3d.github.io/pig2d/libs/pig2d/js/node2d.js"></script>
+<script src="http://gbox3d.github.io/pig2d/libs/pig2d/js/system.js"></script>
+
+<div style="margin: auto; width: 320px;">
+	<div id="text-framerate-info">frame rate</div>
+	<div id="sprite_window" style="height: 260px; margin-top: 3px; position: relative;">
+		<svg style="border: 1px solid; height: 240px; position: absolute;">
+			<line style="stroke: #000000;" x1="0" x2="320" y1="120" y2="120">
+			</line>
+			<line style="stroke: #000000;" x1="160" x2="160" y1="0" y2="240">
+			</line>
+		</svg>
+	</div>
+</div>
+<p>마우스나 터치로 움직여 보세요.</p>
+
+<script>
+	//씬 매니저 생성하기
+	var Smgr = new Pig2d.SceneManager({
+		container : document.getElementById('sprite_window')
+	});
+
+	//////////////////////////////////
+	//오브젝트 만들기(텍스트)
+	var node = new Pig2d.node();
+	var model = new Pig2d.model();
+
+	var element = document.createElement('div');
+	element.innerText = 'P';
+	element.style.backgroundColor = 'yellow';
+	element.style.width = '64px';
+	element.style.height = '64px';
+	element.style.lineHeight = '64px';
+	element.style.textAlign = 'center';
+	element.style.webkitTransform = 'translate(-32px,-32px)';
+
+	model.get('element').appendChild(element);
+	model.setPosition(160,120);
+	node.set({model : model});
+	Smgr.add(node);
+
+	//컨트롤러 설정
+	Pig2d.util.setup_pig2dTestController(
+		//이벤트를 받을 대상 (여기서는 화면 전체임)
+		document.querySelector('#sprite_window'), node //조종할 대상이 되는 오브젝트
+	);
+
+	//게임 루프 시작
+	Pig2d.system.startGameLoop({
+		framerate_info_element : 
+			document.querySelector("#text-framerate-info"),
+		gameLoopCallBack : function(deltaTime) {
+			//씬 매니저 업데이트
+			//여기서 모든 노드들의 최신상태가 화면에 반영된다.
+			Smgr.updateAll(deltaTime);
+		},
+		loopCount_limit : 30
+	});
+</script>

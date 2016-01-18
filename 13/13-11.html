@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf8">
+	<title></title>
+	<script src='../libs/jquery-2.0.3.min.js'></script>
+	<script src='../libs/three.js/three.js'></script>
+	<script src='../libs/three.js/CSS3DRenderer.js'></script>
+	<script src='../libs/ramb3d/core.js'></script>
+</head>
+<body>
+<div id='chart-main-window' style="width: 640px; margin: auto;">
+	<div style="position: absolute; margin: 0px;" class="container-webgl"></div>
+	<div style="position: absolute; margin: 0px;" class="container-css3d"></div>
+</div>
+<script>
+	//공통으로 사용될 카메라값
+	var camera_value = {
+		fov : 45,
+		far : 5000,
+		near : 1,
+		position : new THREE.Vector3(0, 0, 500),
+		lookat : new THREE.Vector3()
+
+	};
+
+	var Smgr_webgl = new ramb3d.scene.SceneManager({
+		camera : camera_value,
+		renderer : {
+			container : document.querySelector('#chart-main-window .container-webgl'),
+			type : 'webgl'
+		},
+		window_size : {
+			width : 640,
+			height: 480
+		}
+	});
+
+	var Smgr_css = new ramb3d.scene.SceneManager({
+		camera : camera_value,
+		renderer : {
+			container : document.querySelector('#chart-main-window .container-css3d'),
+			type : 'css3'
+		},
+		window_size : {
+			width : 640,
+			height: 480
+		}
+	});
+
+	Smgr_css.renderer.domElement.style.backgroundColor = ""; //배경을 투명하게..
+
+	Smgr_css.camera = Smgr_webgl.camera;
+
+	var plane = ramb3d.util.createPlane({
+		name : 'hello-plane',
+		width : 128,
+		height : 128,
+		color : '#00ff00',
+		render_type : 'webgl',
+		rotation :  new THREE.Euler(THREE.Math.degToRad(-90),0,0)
+	});
+
+	Smgr_webgl.scene.add(plane);
+
+	var object = ramb3d.util.createPlane({
+		name : 'hello-plane',
+		width : 110,
+		height : 246,
+		texture : '../res/cohete_on_wf.png',
+		color : 'rgba(0, 0, 0, 0)',//투명컬러를 위해서...
+		render_type : 'css3'
+	});
+
+	object.position.y = 200;
+	Smgr_css.scene.add(object);
+
+	//트랙볼 카메라 컨트롤러 생성
+	var tbcc = Smgr_webgl.addTBCameraController(
+			{
+				Smgr : Smgr_css,
+				subSmgr : Smgr_webgl,
+				center : new THREE.Vector3(0,0,0),
+				radius : 700
+			}
+	);
+
+	tbcc.setRotation(THREE.Math.degToRad(-25),0,0).apply();
+
+	Smgr_css.updateAll();
+	Smgr_webgl.updateAll();
+</script>
+</body>
+</html>

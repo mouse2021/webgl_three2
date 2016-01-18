@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script>
+		//바디 부분 도큐먼트 파싱이 모두 완료되어 메모리에 로딩되면 onload가 콜백된다.
+		window.onload = function() {
+			var node = document.getElementById('mybox');
+			//클릭 이벤트에 대한 핸들러를 등록한다.
+			node.addEventListener('click',function() {
+				node.style.backgroundColor = 'blue';
+			},false);
+		}
+	</script>
+</head>
+<body>
+<div id='mybox' style="width: 100px;height: 100px; background-color: #ff0000"></div>
+</body>
+</html>

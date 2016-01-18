@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>css3 3d transform</title>
+</head>
+<body>
+<!--메인 윈도우 -->
+<div id="window-main" style="width: 320px;height: 240px;border: 1px solid;overflow: hidden;position: relative;">
+
+	<!--가운데 십자선표시 -->
+	<svg class='helper-grid' style="position: absolute; height :240px;border: 1px solid;" >
+		<line x1="0" y1="120" x2="320" y2="120" style="stroke:#000000;"/>
+		<line x1="160" y1="0" x2="160" y2="240" style="stroke:#000000;"/>
+	</svg>
+
+	<!--카메라 오브젝트 -->
+	<div class="camera" style="position: absolute;
+			-webkit-perspective: 500;
+			-webkit-perspective-origin: 50% 50%;
+			-webkit-transform-style: preserve-3d;
+			-webkit-transform:translate(160px,120px)" >
+
+		<!--쓰리디 오브젝트 -->
+		<div id="obj-red-box" style="-webkit-transform : translate3d(-50%,-50%,0);-webkit-transform-style: preserve-3d;position: absolute;">
+			<div  style="
+					border: 1px solid black;
+					background-color: red;
+					font-size: 120px;
+					font-weight: bold;
+					color: white;
+					text-align: center;
+					width : 128px;
+					height : 128px;" >1</div>
+			</div>
+	</div>
+</div>
+
+<div style="margin: 20px;" id="input-panel" >
+	X : <input class='x-axis' type="range" min="-360" 
+		max="360" value="0" />	
+	<br />
+	Y : <input class='y-axis' type="range" min="-360" 
+		max="360" value="0" />
+	<br />
+	Z : <input class='z-axis' type="range" min="-360" 
+		max="360" value="0" />
+</div>
+
+<script>
+
+	var red_box = document.getElementById('obj-red-box');
+
+	document.getElementById('input-panel').addEventListener('change',function(evt) {
+
+		var val_x = this.querySelector('.x-axis').value;
+		var val_y = this.querySelector('.y-axis').value;
+		var val_z = this.querySelector('.z-axis').value;
+
+		red_box.style.webkitTransform = "translate3d(-50%,-50%,0) rotateY(" + val_y + "deg) rotateX(" + val_x + "deg) rotateZ(" + val_z + "deg)" ;
+	});
+</script>
+</body>
+</html>

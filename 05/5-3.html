@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<title> mouse event sample </title>
+</head>
+<body>
+<div style="width: 320px; margin: auto;">
+	<div id='game_screen' style="
+			position: relative;
+			width : 320px;
+			height :240px;
+			">
+		<svg class='helper-grid' style="
+				position: absolute;
+				height :240px;
+				border: 1px solid;
+				" >
+			<line x1="0" y1="120" x2="320" y2="120" style="stroke:#000000;"/>
+			<line x1="160" y1="0" x2="160" y2="240" style="stroke:#000000;"/>
+		</svg>
+		<div id='gameobj-player' style="
+				width: 64px;
+				height: 64px;
+				background-color: red;
+				position: absolute;
+				" ></div>
+	</div>
+	<div id='text-info' >
+		<p class="offset"></p>
+		<p class="layer"></p>
+		<p class="page"></p>
+		<p class="screen"></p>
+	</div>
+</div>
+<script>
+	var player = document.querySelector('#gameobj-player');
+	var game_screen = document.querySelector('#game_screen');
+	//var text_info_offset = document.querySelector('#text-info .offset');
+	player.style.WebkitTransform = 'translate(160px,120px)';
+	game_screen.addEventListener('mousemove',function(evt) {
+		document.querySelector('#text-info .offset').innerText = 
+			'offset : ' + + evt.offsetX + ',' + evt.offsetY;
+		document.querySelector('#text-info .layer').innerText = 
+			'layer : ' + + evt.layerX + ',' + evt.layerY;
+		document.querySelector('#text-info .page').innerText = 
+			'page : ' + + evt.pageX + ',' + evt.pageY;
+		document.querySelector('#text-info .screen').innerText = 
+			'screen : ' + + evt.screenX + ',' + evt.screenY;
+	});
+
+	game_screen.addEventListener('touchmove',function(evt) {
+		evt.preventDefault();
+		var touch = evt.touches[0];
+		document.querySelector('#text-info .offset').innerText = 
+			'offset : ' + + touch.offsetX + ',' + touch.offsetY;
+		document.querySelector('#text-info .layer').innerText = 
+			'layer : ' + + evt.layerX + ',' + evt.layerY;
+		document.querySelector('#text-info .page').innerText = 
+			'page : ' + + evt.pageX + ',' + evt.pageY;
+		document.querySelector('#text-info .screen').innerText = 
+			'screen : ' + + touch.screenX + ',' + touch.screenY;
+	});
+</script>
+</body>
+</html>

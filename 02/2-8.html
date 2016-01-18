@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8"/>
+	<title> get attribute </title>
+	<style>  </style>
+</head>
+<body>
+<div id="movie-info" movie='설국열차' data-json='{"name":"송강호","actor":"주연배우"}' >
+	hot movie news :
+</div>
+
+<script>
+	var node = document.getElementById('movie-info');
+	node.innerText += node.getAttribute('movie');
+	//JSON 형태로 가지고 있다가 파싱해서 사용 가능
+	var movie_data = JSON.parse( node.getAttribute('data-json'));
+	node.innerText += ',주연 :' + movie_data.name;
+</script>
+</body>
+</html>

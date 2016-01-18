@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>theejs sample : geometry</title>
+	<script src="../libs/gbox3d/core.js"></script>
+	<script src="../libs/three.js/three.js"></script>
+</head>
+<body>
+<div id="container" style="width: 320px;height: 240px;" ></div>
+<script>
+	//장면 객체 생성
+	var scene = new THREE.Scene();
+	//투영행렬값 지정
+	var camera = new THREE.PerspectiveCamera(75, 320/240, 0.1, 1000);
+	//렌더러 세팅
+	var renderer = new THREE.WebGLRenderer();
+	renderer.setClearColor(0x000000);
+	//창크기
+	renderer.setSize(320,240);
+	//윈도우지정
+	document.getElementById('container').appendChild(renderer.domElement);
+
+	//지오메트리 객체 만들기
+	var geometry = new THREE.SphereGeometry(
+			2.5,// 지름 크기
+			20,
+			10,
+			0,
+			THREE.Math.degToRad(180),
+			0,
+			THREE.Math.degToRad(90)
+	);
+
+	var material = new THREE.MeshBasicMaterial(
+			{color: 0x00ff00,wireframe: true});
+	var scene_node = new THREE.Mesh(geometry, material);
+	scene.add(scene_node);
+	camera.position.z = 5;
+	var myTimer = new gbox3d.core.Timer();
+
+	var render = function () {
+		var deltaTime = myTimer.getDeltaTime();
+		requestAnimationFrame(render);
+
+		//1초에 10도씩 움직인다.
+		scene_node.rotation.x += THREE.Math.degToRad(10) * deltaTime;
+		scene_node.rotation.y += THREE.Math.degToRad(10) * deltaTime;
+		renderer.render(scene, camera);
+	};
+	render();
+</script>
+</body>
+</html>

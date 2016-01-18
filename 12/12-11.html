@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>theejs sample : matrial</title>
+	<script src="../libs/gbox3d/core.js"></script>
+	<script src="../libs/three.js/three.js"></script>
+</head>
+<body>
+<div id="container" style="width: 320px;height: 240px;" ></div>
+<script>
+	//장면 객체 생성
+	var scene = new THREE.Scene();
+	//투영행렬값 지정
+	var camera = new THREE.PerspectiveCamera(45, 320/240, 0.1, 1000);
+	//렌더러 세팅
+	var renderer = new THREE.WebGLRenderer();
+	renderer.setClearColor(0x000000);
+	//창크기
+	renderer.setSize(320,240);
+
+	//윈도우지정
+	document.getElementById('container').appendChild(renderer.domElement);
+	//주변광 설정
+	scene.add( new THREE.AmbientLight( 0x404040 ) );
+	//방향성광
+	var light;
+	light = new THREE.DirectionalLight( 0xffffff );
+	light.position.set( 1, 1, 1 );
+	scene.add( light );
+
+	var materials = [
+		new THREE.MeshLambertMaterial(
+				{color: 0xffffff,
+					shading : THREE.NoShading
+				}
+		),
+		new THREE.MeshLambertMaterial(
+				{color: 0xffffff,
+					shading : THREE.FlatShading
+				}
+		),
+		new THREE.MeshLambertMaterial(
+				{color: 0xffffff,
+					shading : THREE.SmoothShading
+				}
+		)
+	];
+
+	var scene_node = new THREE.Mesh(new THREE.CylinderGeometry(
+			0.5, 0.5, //상하 원 크기
+			2, //실린더 길이
+			40, //원 새크먼트 갯수
+			5 //길이 새그먼트 갯수
+	), materials[0]);
+	scene_node.position.set(-1.5,0,0);
+	scene.add(scene_node);
+
+	scene_node = new THREE.Mesh(new THREE.CylinderGeometry(
+			0.5, 0.5, //상하 원 크기
+			2, //실린더 길이
+			40, //원 새크먼트 갯수
+			5 //길이 새그먼트 갯수
+	), materials[1]);
+	scene_node.position.set(0,0,0);
+	scene.add(scene_node);
+
+	scene_node = new THREE.Mesh(new THREE.CylinderGeometry(
+			0.5, 0.5, //상하 원 크기
+			2, //실린더 길이
+			40, //원 새크먼트 갯수
+			5 //길이 새그먼트 갯수
+	), materials[2]);
+	scene_node.position.set(1.5,0,0);
+	scene.add(scene_node);
+	camera.position.z = 5;
+	renderer.render(scene, camera);
+</script>
+</body>
+</html>

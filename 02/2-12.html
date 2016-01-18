@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jq exam 2</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+//페이지가 준비되면 호출.
+$(document).ready(function() {
+		$('#foo').click(function() {
+			$('span').appendTo('#foo');
+		})
+	}
+	
+);
+</script>
+</head>
+<body>
+	<span> 이 글의 위치를 보세요. </span>
+	<div id="foo">여기를 보세요.</div>
+</body>
+</html>

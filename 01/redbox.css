@@ -1,0 +1,9 @@
+/*
+	파일 이름 : redbox.css
+*/
+
+.redbox {
+	background-color: red;
+	width: 100px;
+	height: 100px;
+}

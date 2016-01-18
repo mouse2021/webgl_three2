@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>closer sample</title>
+</head>
+
+<body>
+<button id='clo1'>closer1</button>
+<button id='clo2'>closer2</button>
+
+<script>
+	function closer() {
+		//count가 클로져 변수이다. 내부 멤버 함수로 동작한다.
+		var count = 0;
+		return function(evt) {
+			var el = document.createElement('div');
+			el.innerText = evt.target.id + 'count :' + count++;
+			document.body.appendChild(el);
+			return false;
+		}
+	}
+	document.querySelector('#clo1').addEventListener('click',closer());
+	document.querySelector('#clo2').addEventListener('click',closer());
+</script>
+</body>
+</html>

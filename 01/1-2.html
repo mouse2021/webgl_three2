@@ -1,0 +1,20 @@
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" >
+	<script>
+		window.onload = function() {
+			var node_input = document.getElementById('inp-test');
+			node_input.addEventListener('keydown',function() {
+				var node_text = document.getElementById('text-test');
+				node_text.innerText = node_input.value;
+			},false);
+		}
+	</script>
+</head>
+
+<body>
+<input id='inp-test' type="text">  <br>
+<p id='text-test'></p>
+</body>
+</html>
